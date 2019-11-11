@@ -1,0 +1,10 @@
+import csv
+
+with open('selfie_dataset.txt', 'r') as in_file:
+    stripped = (line.strip() for line in in_file)
+    lines = (line.split(" ") for line in stripped if line)
+    with open('log.csv', 'w') as out_file:
+        writer = csv.writer(out_file)
+        #writer.writerow(('title', 'intro'))
+        writer.writerow(('image_name', 'score', 'partial_faces', 'is_female', 'baby', 'child', 'teenager', 'youth', 'middle_age', 'senior', 'white', 'black', 'asian', 'oval_face', 'round_face', 'heart_face', 'smiling', 'mouth_open', 'frowning', 'wearing_glasses', 'wearing_sunglasses', 'wearing_lipstick', 'tongue_out', 'duck_face', 'black_hair', 'blond_hair', 'brown_hair', 'red_hair', 'curly_hair', 'straight_hair', 'braid_hair', 'showing_cellphone', 'using_earphone', 'using_mirror', 'braces', 'wearing_hat', 'harsh_lighting', 'dim_lighting'))
+        writer.writerows(lines)
