@@ -1,0 +1,77 @@
+import pandas as pd
+import numpy as np
+import csv
+import time
+
+def text_to_csv(text_path, csv_path):
+    with open(text_path, 'r') as in_file:
+        stripped = (line.strip() for line in in_file)
+        lines = lines = (line.split(" ") for line in stripped if line)
+        with open(csv_path, 'w') as out_file:
+            writer = csv.writer(out_file)
+            writer.writerow(('image_name', 'score', 'partial_faces', 'is_female', 'baby', 'child', 'teenager', 'youth',
+                             'middle_age', 'senior', 'white', 'black', 'asian', 'oval_face', 'round_face', 'heart_face',
+                             'smiling', 'mouth_open', 'frowning', 'wearing_glasses', 'wearing_sunglasses',
+                             'wearing_lipstick', 'tongue_out', 'duck_face', 'black_hair', 'blond_hair', 'brown_hair',
+                             'red_hair', 'curly_hair', 'straight_hair', 'braid_hair', 'showing_cellphone',
+                             'using_earphone', 'using_mirror', 'braces', 'wearing_hat', 'harsh_lighting',
+                             'dim_lighting'))
+            writer.writerows(lines)
+
+
+# main values
+#2. Importing Dataset
+dataset = pd.read_csv('log.csv')
+print dataset.head()
+
+assert(dataset.shape == (46836, 38)), 'Deveriam existir 46836 linhas e 38 colunas'
+#print('The shape of our feature is:', dataset.shape)
+#features = pd.get_dummies(dataset)
+#print features.iloc[:,5:].head(5)
+
+print dataset.describe()
+
+
+# #3. Preparing Data For Training
+# X = dataset.iloc[:, 1:38].values
+# #print(X)
+# y = dataset.iloc[:, 37].values
+# print(y)
+# time.sleep(10)
+# from sklearn.model_selection import train_test_split
+#
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+#
+# print('Training Features Shape:', X_train.shape)
+# print('Training Labels Shape:', y_train.shape)
+# print('Testing Features Shape:', X_test.shape)
+# print('Testing Labels Shape:', y_test.shape)
+#
+# #4. Feature Scaling
+# from sklearn.preprocessing import StandardScaler
+#
+# sc = StandardScaler()
+# X_train = sc.fit_transform(X_train)
+# X_test = sc.transform(X_test)
+#
+# #5. Training the Algorithm
+# from sklearn.ensemble import RandomForestClassifier
+#
+# clf = RandomForestClassifier(n_estimators=2000, random_state=0)
+# clf.fit(X_train, y_train)
+# y_pred = clf.predict(X_test)
+# print(clf.feature_importances_)
+#
+# #6. Evaluating the Algorithm
+# #from sklearn import metrics
+#
+# #print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
+# #print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
+# #print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+#
+# #Classification
+# from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+#
+# print(confusion_matrix(y_test,y_pred))
+# print(classification_report(y_test,y_pred))
+# print(accuracy_score(y_test, y_pred))
